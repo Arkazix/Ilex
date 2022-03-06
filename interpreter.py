@@ -1,3 +1,4 @@
+from math import factorial
 from values import Number
 from nodes import *
 
@@ -23,6 +24,12 @@ class Interpreter:
     def visit_DivideNode(self, node):
         try:
             return Number(self.visit(node.node_a).value / self.visit(node.node_b).value)
+        except:
+            raise Exception("Runtime math error")
+
+    def visit_FactorialNode(self, node):
+        try:
+            return Number(factorial(self.visit(node.node).value))
         except:
             raise Exception("Runtime math error")
 

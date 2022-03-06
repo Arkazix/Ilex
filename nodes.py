@@ -59,3 +59,10 @@ class MinusNode:
 
     def __repr__(self) -> str:
         return f"(-{self.node})"
+
+@dataclass
+class FactorialNode:
+    node: any
+
+    def __repr__(self) -> str:
+        return f"({self.node}!)"

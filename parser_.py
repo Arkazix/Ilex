@@ -1,10 +1,11 @@
-from tokens import TokenType
+from typing import Generator
+from tokens import TokenType, Token
 from nodes import *
 
 
 class Parser:
 
-    def __init__(self, tokens) -> None:
+    def __init__(self, tokens: Generator[Token, None, None]) -> None:
         self.tokens = iter(tokens)
         self.advance()
 
@@ -31,14 +32,17 @@ class Parser:
     def expr(self):
         result = self.term()
 
-        while self.current_token != None and self.current_token.type in (TokenType.PLUS, TokenType.MINUS):
+        while self.current_token != None and self.current_token.type in (TokenType.PLUS, TokenType.MINUS, TokenType.FACTORIAL):
             if self.current_token.type == TokenType.PLUS:
                 self.advance()
                 result = AddNode(result, self.term())
             elif self.current_token.type == TokenType.MINUS:
                 self.advance()
                 result = SubstractNode(result, self.term())
-
+            elif self.current_token.type == TokenType.FACTORIAL:
+                self.advance()
+                result = FactorialNode(result)
+            
         return result
 
     def term(self):
@@ -56,7 +60,6 @@ class Parser:
 
     def factor(self):
         token = self.current_token
-
         if token.type == TokenType.LPAREN:
             self.advance()
             result = self.expr()
@@ -68,12 +71,15 @@ class Parser:
             return result
         elif token.type == TokenType.NUMBER:
             self.advance()
-            return NumberNode(token.value)
+            if self.current_token != None and self.current_token.type == TokenType.FACTORIAL:
+                self.advance()
+                return FactorialNode(NumberNode(token.value))
+            else:
+                return NumberNode(token.value)
         elif token.type == TokenType.PLUS:
             self.advance()
             return PlusNode(self.factor())
         elif token.type == TokenType.MINUS:
             self.advance()
             return MinusNode(self.factor())
-
         self.raise_error()

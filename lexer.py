@@ -21,6 +21,9 @@ class Lexer:
         while self.current_char != None:
             if self.current_char in WHITESPACE:
                 self.advance()
+            elif self.current_char == "#":
+                self.advance()
+                break
             elif self.current_char == '.' or self.current_char in DIGITS:
                 yield self.generate_number()
             elif self.current_char == '+':
@@ -41,6 +44,9 @@ class Lexer:
             elif self.current_char == ')':
                 self.advance()
                 yield Token(TokenType.RPAREN)
+            elif self.current_char == "!":
+                self.advance()
+                yield Token(TokenType.FACTORIAL)
             else:
                 raise Exception(f"Illefal character '{self.current_char}'")
 
