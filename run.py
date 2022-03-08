@@ -10,3 +10,4 @@ if __name__ == '__main__':
                 read_line(line, idx)
     else:
         print(f"File extenstion error '{filename[-3:]}'")
+        
