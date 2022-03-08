@@ -1,12 +1,12 @@
 from tokens import Token, TokenType
 from typing import Union
 from stack import Stack
+from const import ASSOCIATIVITY_LEFT
 
 
 DIGITS = "0123456789"
 WHITESPACE = " \t\n\r\v\f"
-ASSOCIATIVITY_LEFT = 0
-ASSOCIATIVITY_RIGHT = 1
+
 
 
 def raise_error(prompt: str) -> None:
