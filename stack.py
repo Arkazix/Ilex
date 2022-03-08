@@ -20,8 +20,9 @@ class Stack:
     def is_empty(self) -> bool:
         return len(self.stack) == 0
 
-    def top_element(self) -> Token:
-        return self.stack[-1]
+    def top_element(self) -> Union[Token, None]:
+        if len(self.stack) != 0:
+            return self.stack[-1]
 
     def __repr__(self) -> str:
         return str(self.stack)

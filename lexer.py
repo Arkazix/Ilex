@@ -3,10 +3,8 @@ from typing import Union
 from stack import Stack
 from const import ASSOCIATIVITY_LEFT
 
-
 DIGITS = "0123456789"
 WHITESPACE = " \t\n\r\v\f"
-
 
 
 def raise_error(prompt: str) -> None:
